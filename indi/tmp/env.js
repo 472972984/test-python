@@ -1,83 +1,3 @@
-// 代理器封装
-function get_environment(proxy_array) {
-    for (var i = 0; i < proxy_array.length; i++) {
-        handler = '{\n' +
-            '    get: function(target, property, receiver) {\n' +
-            '        console.log("方法:", "get  ", "对象:", ' +
-            '"' + proxy_array[i] + '" ,' +
-            '"  属性:", property, ' +
-            '"  属性类型:", ' + 'typeof property, ' +
-            // '"  属性值:", ' + 'target[property], ' +
-            '"  属性值类型:", typeof target[property]);\n' +
-            '        return target[property];\n' +
-            '    },\n' +
-            '    set: function(target, property, value, receiver) {\n' +
-            '        console.log("方法:", "set  ", "对象:", ' +
-            '"' + proxy_array[i] + '" ,' +
-            '"  属性:", property, ' +
-            '"  属性类型:", ' + 'typeof property, ' +
-            // '"  属性值:", ' + 'target[property], ' +
-            '"  属性值类型:", typeof target[property]);\n' +
-            '        return Reflect.set(...arguments);\n' +
-            '    }\n' +
-            '}'
-        eval('try{\n' + proxy_array[i] + ';\n'
-            + proxy_array[i] + '=new Proxy(' + proxy_array[i] + ', ' + handler + ')}catch (e) {\n' + proxy_array[i] + '={};\n'
-            + proxy_array[i] + '=new Proxy(' + proxy_array[i] + ', ' + handler + ')}')
-    }
-}
-
-window = global;
-
-
-let navigator = {
-    userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1"
-}
-
-window.location = {
-    "ancestorOrigins": {},
-    "href": "https://h5.waimai.meituan.com/waimai/mindex/home",
-    "origin": "https://h5.waimai.meituan.com",
-    "protocol": "https:",
-    "host": "h5.waimai.meituan.com",
-    "hostname": "h5.waimai.meituan.com",
-    "port": "",
-    "pathname": "/waimai/mindex/home",
-    "search": "",
-    "hash": ""
-}
-
-let settings = {
-    "url": "https://open.meituan.com/user/privacy/get-switches?joinkey=100289_-1413875520&uuid=B8CC07D0B88D0C5EACDBD5735075EDCFC395A291F4D7B02C4154AA702B41710F&cookie_support=1",
-    "method": "GET",
-    "doNotShowToastr": true,
-    "xhrFields": {
-        "withCredentials": true
-    },
-    "headers": {},
-    "type": "GET",
-    "context": null,
-    "global": true,
-    "accepts": {
-        "script": "text/javascript, application/javascript, application/x-javascript",
-        "json": "application/json",
-        "xml": "application/xml, text/xml",
-        "html": "text/html",
-        "text": "text/plain"
-    },
-    "crossDomain": true,
-    "timeout": 0,
-    "processData": true,
-    "cache": true
-}
-
-XMLHttpRequest = function (){}
-XMLHttpRequest.prototype = new XMLHttpRequest()
-setInterval=function () {}
-
-proxy_array = ['window', 'document', 'location', 'navigator', 'history', 'screen']
-get_environment(proxy_array)
-
 !function (factory) {
     "function" == typeof define && define.amd ? define(factory) : factory()
 }(function () {
@@ -4908,6 +4828,30 @@ get_environment(proxy_array)
         }, typeof define === c(0) && define[c(1)] ? define(d) : d()
     }, typeof define === c(0) && define[c(1)] ? define(d) : d()
 });
+
+let settings = {
+    "url": "https://open.meituan.com/user/privacy/get-switches?joinkey=100289_-1413875520&uuid=B8CC07D0B88D0C5EACDBD5735075EDCFC395A291F4D7B02C4154AA702B41710F&cookie_support=1",
+    "method": "GET",
+    "doNotShowToastr": true,
+    "xhrFields": {
+        "withCredentials": true
+    },
+    "headers": {},
+    "type": "GET",
+    "context": null,
+    "global": true,
+    "accepts": {
+        "script": "text/javascript, application/javascript, application/x-javascript",
+        "json": "application/json",
+        "xml": "application/xml, text/xml",
+        "html": "text/html",
+        "text": "text/plain"
+    },
+    "crossDomain": true,
+    "timeout": 0,
+    "processData": true,
+    "cache": true
+}
 
 
 H5guard.sign(settings).then(function (res) {

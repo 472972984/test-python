@@ -23,7 +23,7 @@ async function getData() {
         const result = await res.json(); // 解析 JSON 响应
         console.log("查询结果：", result);
     }catch (error) {
-
+        console.log("查询异常：", error);
     }
 }
 
