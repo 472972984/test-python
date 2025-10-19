@@ -94,7 +94,21 @@ delete Buffer
 Document=function(){}
 HTMLAllCollection=function(){}
 HTMLAllCollection.prototype=watch({},'HTMLAllCollection.prototype')
-Document.prototype={}
+Document.prototype={
+    getElementsByTagName:function (e) {
+        if(e == 'script') {
+            return [watch({}, 'document.getElementsByTagName(\'script\')[0]')]
+        }else {
+            //找对 混淆值：得到 ${e} = script
+            console_log(`document.getElementsByTagName('${e}')`)
+        }
+    },
+    documentElement: watch({}, "Document.documentElement")
+}
+
+indexedDB = watch({}, "window.indexedDB")
+chrome = watch({}, "window.chrome")
+
 
 HTMLDocument=function(){}
 HTMLDocument.prototype=watch({},'HTMLDocument.prototype')
@@ -140,7 +154,17 @@ screen.toString=function(){return '[object Screen]'},
 // 4.screen
 /////////////////////////////////////////////////////////
 Navigator=function(){}
-Navigator.prototype={}
+Navigator.prototype = {
+    plugins: watch({}, "Navigator.plugins"),
+    cookieEnabled: true,
+    webdriver: false,
+    vendor: "Google Inc.",
+    platform: "MacIntel",
+    appCodeName: "Mozilla",
+    appName: "Netscape",
+    appVersion: "5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+}
 Navigator.toString=function(){return 'function Navigator() { [native code] }'},
 
     navigator=new Navigator()
@@ -152,7 +176,22 @@ Performance = function () { }
 Performance.prototype=watch({},'Performance.prototype')
 performance = watch(new Performance, 'performance')
 Location=function(){}
-Location.prototype = {}
+Location.prototype = {
+    "ancestorOrigins": {},
+    "href": "https://www.dianping.com/shop/l8d35zMjZDgernZ1",
+    "origin": "https://www.dianping.com",
+    "protocol": "https:",
+    "host": "www.dianping.com",
+    "hostname": "www.dianping.com",
+    "port": "",
+    "pathname": "/shop/l8d35zMjZDgernZ1",
+    "search": "",
+    "hash": ""
+}
+
+XMLHttpRequest=function () {}
+XMLHttpRequest.prototype=watch({}, 'XMLHttpRequest.prototype')
+
 Location.toString=function(){return 'function Location() { [native code] }'},
 
     location=new Location()
