@@ -96,7 +96,16 @@ HTMLAllCollection=function(){}
 HTMLAllCollection.prototype=watch({},'HTMLAllCollection.prototype')
 // 4️⃣ 修改点
 Document.prototype={
-
+    getElementsByTagName:function (e) {
+        if(e == 'script') {
+            return [watch({}, 'document.getElementsByTagName(\'script\')[0]')]
+        }else {
+            //找对 混淆值：得到 ${e} = script
+            console_log(`document.getElementsByTagName('${e}')`)
+        }
+    },
+    // ！！！ 问题在这里 注意注意注意！！！
+    documentElement: watch({}, "Document.documentElement")
 }
 
 HTMLDocument=function(){}
@@ -145,13 +154,14 @@ screen.toString=function(){return '[object Screen]'},
 Navigator=function(){}
 // 3️⃣ 修改点
 Navigator.prototype = {
+    cookieEnabled: true,
     webdriver: false,
     vendor: "Google Inc.",
     platform: "MacIntel",
     appCodeName: "Mozilla",
     appName: "Netscape",
     appVersion: "5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
-    userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.5 Mobile/15E148 Safari/604.1"
+    userAgent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
 }
 Navigator.toString=function(){return 'function Navigator() { [native code] }'},
 
