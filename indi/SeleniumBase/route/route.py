@@ -84,8 +84,6 @@ def get_all_paginated_data(api_url, cookies, page_size=20, type_param=1):
             # 租户信息
             "x-tenant-schema": "tenant_1758519122706",
             "Content-Type": "application/json",  # 关键！POST 接口需指定 JSON 格式
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-            "Referer": "https://10.50.3.44:4443/data-route/#/login?schema=tenant_1758519122706"  # 来源页，与登录页一致
         }
 
         retry_count = 0
